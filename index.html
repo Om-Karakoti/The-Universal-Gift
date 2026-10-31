@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#080B1D] text-[#F8F6FF] selector-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Universe Chose You — A Cosmic Love Story</title>
+
+  <!-- Favicon & Social Preview -->
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/favicon.png">
+  <meta property="og:title" content="The Universe Chose You — A Cosmic Love Story">
+  <meta property="og:image" content="/assets/logo.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#080B1D',
+            indigoDeep: '#17113B',
+            cosmicPurple: '#583B91',
+            softViolet: '#A78BFA',
+            celestialGold: '#E9D6A5',
+            warmWhite: '#F8F6FF',
+          },
+          fontFamily: {
+            serif: ['Cinzel Decorative', 'Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { opacity: 0.6, transform: 'scale(1)' },
+              '50%': { opacity: 1, transform: 'scale(1.05)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Custom Scrollbars & Utilities */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #080B1D; }
+    ::-webkit-scrollbar-thumb { background: #312E81; border-radius: 9999px; }
+    
+    .glass-panel {
+      background: rgba(23, 17, 59, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(167, 139, 250, 0.18);
+    }
+
+    .glass-card {
+      background: rgba(8, 11, 29, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(233, 214, 165, 0.25);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(88, 59, 145, 0.25);
+    }
+
+    .cosmic-btn {
+      background: linear-gradient(135deg, rgba(88,59,145,0.4) 0%, rgba(23,17,59,0.8) 100%);
+      border: 1px solid rgba(233, 214, 165, 0.4);
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.25), inset 0 0 10px rgba(233, 214, 165, 0.1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cosmic-btn:hover {
+      border-color: rgba(233, 214, 165, 0.9);
+      box-shadow: 0 0 35px rgba(233, 214, 165, 0.4), inset 0 0 15px rgba(167, 139, 250, 0.3);
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF 0%, #E9D6A5 50%, #C5A880 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .violet-gradient-text {
+      background: linear-gradient(135deg, #FFFFFF 0%, #A78BFA 60%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Fade the logo's dark backdrop into the panel */
+    .site-logo {
+      -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 48%, #000 55%, transparent 100%);
+      mask-image: radial-gradient(ellipse 60% 55% at 50% 48%, #000 55%, transparent 100%);
+    }
+
+    /* Prevent selection on interactive canvas container */
+    #canvas-container {
+      touch-action: none;
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body class="h-full w-full bg-[#080B1D] text-[#F8F6FF] font-sans antialiased overflow-x-hidden selection:bg-cosmicPurple selection:text-celestialGold">
+
+  <!-- ========================================== -->
+  <!-- CANVAS BACKGROUND (Shared Cosmic Universe) -->
+  <!-- ========================================== -->
+  <div id="canvas-container" class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <canvas id="universe-canvas" class="w-full h-full block"></canvas>
+  </div>
+
+  <!-- Ambient Audio Indicator / Visualizer -->
+  <button id="audio-toggle" onclick="toggleAudio()" class="fixed top-5 right-5 z-40 p-3 rounded-full glass-panel text-celestialGold/70 hover:text-celestialGold transition-all flex items-center justify-center space-x-2 text-xs border border-celestialGold/20" title="Toggle Cosmic Soundscape">
+    <i id="audio-icon" class="fas fa-volume-mute"></i>
+    <span class="hidden sm:inline font-mono tracking-widest uppercase text-[10px]" id="audio-label">Ambient Sound</span>
+  </button>
+
+  <!-- Navigation / Mode Switcher -->
+  <div id="creator-bar" class="fixed top-5 left-5 z-40 hidden flex items-center space-x-3">
+    <button onclick="switchView('creator')" class="px-4 py-2 rounded-full glass-panel text-xs text-softViolet hover:text-warmWhite border border-softViolet/30 transition-all flex items-center space-x-2">
+      <i class="fas fa-magic"></i>
+      <span>Edit Gift</span>
+    </button>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- VIEW 1: CREATOR-SIDE FORM & TOOL SUITE     -->
+  <!-- ========================================== -->
+  <section id="creator-view" class="relative z-10 min-h-screen flex items-center justify-center p-4 sm:p-8">
+    <div class="max-w-2xl w-full glass-panel rounded-3xl p-6 sm:p-10 border border-softViolet/20 shadow-2xl space-y-8 my-10">
+      
+      <!-- Header -->
+      <div class="text-center space-y-3">
+        <img src="/assets/logo.png" alt="The Universal Gift" width="768" height="570" class="site-logo mx-auto w-56 sm:w-72 h-auto -mt-2 sm:-mt-4 select-none" draggable="false">
+        <div class="inline-flex items-center space-x-2 text-celestialGold text-xs uppercase tracking-[0.3em] font-semibold">
+          <i class="fas fa-star text-[10px]"></i>
+          <span>Cosmic Gift Creator</span>
+          <i class="fas fa-star text-[10px]"></i>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-serif gold-gradient-text tracking-wide">The Universe Chose You</h1>
+        <p class="text-sm text-warmWhite/70 font-light max-w-md mx-auto">
+          Craft an unforgettable cinematic universe experience and personalized birthday love letter for someone extraordinary.
+        </p>
+      </div>
+
+      <!-- Step Form -->
+      <form id="creator-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+        
+        <!-- Recipient & Sender Input Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div class="space-y-2">
+            <label class="block text-xs uppercase tracking-wider text-celestialGold/90 font-medium">
+              Recipient's Name <span class="text-rose-400">*</span>
+            </label>
+            <div class="relative">
+              <i class="fas fa-heart absolute left-4 top-3.5 text-softViolet/50 text-xs"></i>
+              <input type="text" id="recipientName" required placeholder="e.g. Elena" 
+                class="w-full bg-midnight/80 border border-softViolet/30 rounded-xl py-3 pl-10 pr-4 text-sm text-warmWhite focus:outline-none focus:border-celestialGold focus:ring-1 focus:ring-celestialGold transition-all">
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-xs uppercase tracking-wider text-celestialGold/90 font-medium">
+              Your Name / Nickname <span class="text-rose-400">*</span>
+            </label>
+            <div class="relative">
+              <i class="fas fa-signature absolute left-4 top-3.5 text-softViolet/50 text-xs"></i>
+              <input type="text" id="senderName" required placeholder="e.g. Julian" 
+                class="w-full bg-midnight/80 border border-softViolet/30 rounded-xl py-3 pl-10 pr-4 text-sm text-warmWhite focus:outline-none focus:border-celestialGold focus:ring-1 focus:ring-celestialGold transition-all">
+            </div>
+          </div>
+        </div>
+
+        <!-- One Thing You Love Detail -->
+        <div class="space-y-2" id="detail-wrapper">
+          <label class="block text-xs uppercase tracking-wider text-celestialGold/90 font-medium">
+            One thing you love most about them <span id="detail-required-asterisk" class="text-rose-400">*</span>
+          </label>
+          <textarea id="personalDetail" required placeholder="e.g. The way her laugh instantly turns my darkest days into pure light, and how she notices the quiet beauty in everything." 
+            class="w-full bg-midnight/80 border border-softViolet/30 rounded-xl p-3.5 text-sm text-warmWhite focus:outline-none focus:border-celestialGold focus:ring-1 focus:ring-celestialGold transition-all"></textarea>
+          <p class="text-[11px] text-warmWhite/50 leading-relaxed" id="detail-help-text">
+            This personal trait forms the heartfelt anchor of the celestial birthday message generator.
+          </p>
+        </div>
+
+        <!-- Message Options Switcher -->
+        <div class="space-y-3 pt-2">
+          <label class="block text-xs uppercase tracking-wider text-celestialGold/90 font-medium">
+            Birthday Love Letter Choice
+          </label>
+          
+          <div class="grid grid-cols-2 gap-3 p-1 bg-midnight/60 rounded-xl border border-softViolet/20">
+            <button type="button" id="tab-suggested" onclick="selectMessageOption('suggested')" 
+              class="py-2.5 px-3 rounded-lg text-xs font-medium transition-all flex items-center justify-center space-x-2 bg-cosmicPurple/60 text-warmWhite border border-softViolet/40 shadow-sm">
+              <i class="fas fa-wand-magic-sparkles text-celestialGold"></i>
+              <span>Suggested Letter</span>
+            </button>
+            <button type="button" id="tab-custom" onclick="selectMessageOption('custom')" 
+              class="py-2.5 px-3 rounded-lg text-xs font-medium transition-all flex items-center justify-center space-x-2 text-warmWhite/60 hover:text-warmWhite">
+              <i class="fas fa-pen-nib"></i>
+              <span>Write My Own</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Option A: Suggested Message Panel -->
+        <div id="panel-suggested" class="space-y-3 transition-all">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-warmWhite/70">Wholesome Celestial Generator Engine</span>
+            <button type="button" onclick="generateSuggestedMessage()" 
+              class="text-xs text-celestialGold hover:underline flex items-center space-x-1.5 focus:outline-none">
+              <i id="gen-spinner" class="fas fa-rotate text-[10px]"></i>
+              <span id="gen-btn-text">Generate / Refresh Suggestion</span>
+            </button>
+          </div>
+
+          <div class="relative">
+            <textarea id="suggestedText" rows="6" 
+              placeholder="Click 'Generate / Refresh Suggestion' above to weave a heartfelt letter based on your personal detail..." 
+              class="w-full bg-midnight/90 border border-softViolet/30 rounded-xl p-4 text-sm leading-relaxed text-warmWhite font-serif focus:outline-none focus:border-celestialGold transition-all"></textarea>
+          </div>
+        </div>
+
+        <!-- Option B: Custom Blank Editor Panel -->
+        <div id="panel-custom" class="space-y-3 hidden transition-all">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-warmWhite/70">Your Custom Blank Letter (Exact Wording Preserved)</span>
+            <span class="text-[10px] text-celestialGold/70 font-mono">Custom Mode Active</span>
+          </div>
+          <textarea id="customText" rows="6" 
+            placeholder="Dearest [Name],&#10;&#10;On this extraordinary day when the stars align..." 
+            class="w-full bg-midnight/90 border border-softViolet/30 rounded-xl p-4 text-sm leading-relaxed text-warmWhite font-serif focus:outline-none focus:border-celestialGold transition-all"></textarea>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="pt-4 flex flex-col sm:flex-row gap-4">
+          <button type="button" onclick="previewGift()" 
+            class="sm:w-1/2 py-3.5 px-6 rounded-xl text-xs font-semibold uppercase tracking-wider text-warmWhite bg-indigoDeep/80 hover:bg-cosmicPurple/50 border border-softViolet/30 transition-all flex items-center justify-center space-x-2">
+            <i class="fas fa-eye text-softViolet"></i>
+            <span>Preview Experience</span>
+          </button>
+          
+          <button type="submit" 
+            class="sm:w-1/2 py-3.5 px-6 rounded-xl text-xs font-semibold uppercase tracking-wider text-midnight cosmic-btn text-celestialGold border border-celestialGold/60 transition-all flex items-center justify-center space-x-2 font-bold" style="background: linear-gradient(135deg, #E9D6A5 0%, #C5A880 100%);">
+            <i class="fas fa-paper-plane"></i>
+            <span>Generate Share Link</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- MODAL: SHARE LINK & PREVIEW CONFIRMATION   -->
+  <!-- ========================================== -->
+  <div id="share-modal" class="fixed inset-0 z-50 bg-midnight/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="max-w-md w-full glass-card rounded-3xl p-6 sm:p-8 space-y-6 text-center relative border border-celestialGold/40 animate-pulse-glow">
+      <button onclick="closeShareModal()" class="absolute top-4 right-4 text-warmWhite/50 hover:text-warmWhite text-lg p-2">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="w-14 h-14 rounded-full bg-cosmicPurple/40 border border-celestialGold/40 flex items-center justify-center mx-auto text-celestialGold text-xl shadow-lg">
+        <i class="fas fa-star-of-david"></i>
+      </div>
+
+      <div class="space-y-2">
+        <h3 class="text-xl font-serif gold-gradient-text">Your Celestial Gift is Ready!</h3>
+        <p class="text-xs text-warmWhite/70">
+          Share this unique link with your partner. When opened, they will embark on a shooting-star journey to your birthday letter.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center bg-midnight/90 border border-softViolet/40 rounded-xl p-2.5">
+          <input type="text" id="shareUrlInput" readonly class="bg-transparent text-xs text-celestialGold font-mono w-full px-2 focus:outline-none selection:bg-cosmicPurple">
+          <button onclick="copyShareUrl()" id="copyBtn" class="px-4 py-2 bg-cosmicPurple hover:bg-softViolet/40 text-warmWhite rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 flex-shrink-0">
+            <i class="fas fa-copy"></i>
+            <span id="copyBtnText">Copy</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-2 flex items-center justify-between text-xs text-warmWhite/60 border-t border-softViolet/20">
+        <span>No app download or login required for recipient</span>
+        <button onclick="launchRecipientFromModal()" class="text-celestialGold hover:underline font-semibold flex items-center space-x-1">
+          <span>Test Link Now</span>
+          <i class="fas fa-arrow-right text-[10px]"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- VIEW 2: RECIPIENT-FACING EXPERIENTIAL VIEW -->
+  <!-- ========================================== -->
+  <section id="recipient-view" class="relative z-10 min-h-screen w-full flex flex-col items-center justify-center p-6 text-center hidden">
+    
+    <!-- Stage 0: Initial Hero Landing -->
+    <div id="hero-stage" class="max-w-3xl space-y-8 transition-all duration-1000 transform">
+      
+      <div class="inline-flex items-center space-x-3 px-4 py-1.5 rounded-full glass-panel border border-celestialGold/20 text-celestialGold/90 text-xs uppercase tracking-[0.3em] font-medium shadow-xl">
+        <span class="w-1.5 h-1.5 rounded-full bg-celestialGold animate-ping"></span>
+        <span>A Celestial Tribute</span>
+      </div>
+
+      <!-- Main Heading -->
+      <h1 id="hero-heading" class="text-4xl sm:text-6xl md:text-7xl font-serif gold-gradient-text tracking-tight leading-tight drop-shadow-lg">
+        For the girl who makes my universe brighter.
+      </h1>
+
+      <!-- Subtitle -->
+      <p id="hero-subtext" class="text-base sm:text-lg text-warmWhite/80 font-light tracking-wide max-w-xl mx-auto drop-shadow">
+        Today, the universe has something to tell you.
+      </p>
+
+      <!-- Primary CTA Button -->
+      <div class="pt-6">
+        <button id="enter-btn" onclick="startCosmicJourney()" 
+          class="group relative inline-flex items-center space-x-3 px-10 py-5 rounded-full text-sm sm:text-base font-medium tracking-widest text-warmWhite cosmic-btn uppercase transition-all duration-500 cursor-pointer">
+          <span class="relative z-10 font-serif gold-gradient-text tracking-widest font-semibold">Enter Your Universe</span>
+          <i class="fas fa-sparkles text-celestialGold group-hover:rotate-45 transition-transform duration-500 text-sm"></i>
+          <span class="absolute inset-0 rounded-full bg-celestialGold/10 opacity-0 group-hover:opacity-100 transition-opacity blur-md"></span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Stage 5: Final Love Letter Card Container -->
+    <div id="letter-stage" class="fixed inset-0 z-30 flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-all duration-1000">
+      <div class="max-w-2xl w-full glass-card rounded-3xl p-8 sm:p-12 text-left space-y-8 max-h-[85vh] overflow-y-auto border border-celestialGold/30 relative shadow-2xl">
+        
+        <!-- Subtle Top Celestial Header -->
+        <div class="flex items-center justify-between border-b border-softViolet/20 pb-4">
+          <div class="flex items-center space-x-2 text-celestialGold text-xs uppercase tracking-widest font-serif">
+            <i class="fas fa-compass"></i>
+            <span>Cosmic Destination Reached</span>
+          </div>
+          <span id="letter-date" class="text-[11px] font-mono text-warmWhite/40"></span>
+        </div>
+
+        <!-- Greeting -->
+        <div class="space-y-2">
+          <h2 id="letter-greeting" class="text-2xl sm:text-3xl font-serif gold-gradient-text">
+            Dearest Recipient,
+          </h2>
+        </div>
+
+        <!-- Main Body -->
+        <div id="letter-body" class="text-base sm:text-lg text-warmWhite/90 font-serif leading-relaxed space-y-4 whitespace-pre-wrap tracking-wide">
+          <!-- Text dynamically injected here -->
+        </div>
+
+        <!-- Signoff -->
+        <div class="pt-6 border-t border-softViolet/20 flex flex-col items-end space-y-1">
+          <span class="text-xs uppercase tracking-widest text-warmWhite/50 font-sans">Forever & Always,</span>
+          <span id="letter-sender" class="text-xl sm:text-2xl font-serif text-celestialGold">
+            Sender Name
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Toast Notification System -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden px-5 py-3 rounded-xl glass-card border border-celestialGold/40 text-xs text-warmWhite flex items-center space-x-3 shadow-2xl transition-all">
+    <i id="toast-icon" class="fas fa-info-circle text-celestialGold"></i>
+    <span id="toast-msg">Notification</span>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT: LOGIC, ANIMATION & ENGINE      -->
+  <!-- ========================================== -->
+  <script>
+    /* ------------------------------------------------------------------ */
+    /* 1. STATE & GLOBAL CONFIG                                           */
+    /* ------------------------------------------------------------------ */
+    const state = {
+      view: 'creator', // 'creator' | 'recipient'
+      activeMessageOption: 'suggested', // 'suggested' | 'custom'
+      recipientName: '',
+      senderName: '',
+      personalDetail: '',
+      suggestedMessage: '',
+      customMessage: '',
+      activeMessage: '',
+      journeyActive: false,
+      journeyStage: 0,
+      audioPlaying: false
+    };
+
+    let canvas, ctx;
+    let width, height;
+
+    // Simulation Entities
+    let stars = [];
+    let planets = [];
+    let nebulae = [];
+    let cosmicParticles = [];
+    let shootingStar = null;
+    let burstParticles = [];
+    let cameraOffset = { x: 0, y: 0 };
+
+    /* ------------------------------------------------------------------ */
+    /* Safe Base64 Helpers for URL encoding                               */
+    /* ------------------------------------------------------------------ */
+    function safeBase64Encode(str) {
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+        return String.fromCharCode('0x' + p1);
+      })).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+
+    function safeBase64Decode(str) {
+      let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+      while (base64.length % 4) {
+        base64 += '=';
+      }
+      return decodeURIComponent(Array.from(atob(base64)).map(c => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 2. INITIALIZATION & VIEW MANAGEMENT                                 */
+    /* ------------------------------------------------------------------ */
+    function initApp() {
+      initCanvas();
+      setupWindowEvents();
+      // Use setTimeout to ensure DOM painted completely before parsing payload
+      setTimeout(checkUrlParameters, 50);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+
+    function checkUrlParameters() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const hashData = window.location.hash.substring(1);
+        const rawData = urlParams.get('data') || hashData;
+
+        if (rawData) {
+          const decodedJson = JSON.parse(safeBase64Decode(rawData));
+          
+          if (decodedJson && (decodedJson.r || decodedJson.m)) {
+            state.recipientName = decodedJson.r || 'My Love';
+            state.senderName = decodedJson.s || 'Yours Always';
+            state.activeMessage = decodedJson.m || 'Happy Birthday!';
+            
+            renderRecipientView();
+            switchView('recipient');
+            return;
+          }
+        }
+      } catch (e) {
+        console.error("Failed to parse share URL payload:", e);
+      }
+
+      switchView('creator');
+    }
+
+    function switchView(viewName) {
+      state.view = viewName;
+      const creatorSec = document.getElementById('creator-view');
+      const recipientSec = document.getElementById('recipient-view');
+      const creatorBar = document.getElementById('creator-bar');
+
+      if (!creatorSec || !recipientSec) return;
+
+      if (viewName === 'creator') {
+        creatorSec.classList.remove('hidden');
+        recipientSec.classList.add('hidden');
+        if (creatorBar) creatorBar.classList.add('hidden');
+        resetJourneyState();
+      } else {
+        creatorSec.classList.add('hidden');
+        recipientSec.classList.remove('hidden');
+        resetJourneyState();
+        
+        if (creatorBar && state.recipientName) {
+          creatorBar.classList.remove('hidden');
+        }
+      }
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 3. CREATOR FORM & MESSAGE GENERATION LOGIC                        */
+    /* ------------------------------------------------------------------ */
+    function selectMessageOption(option) {
+      state.activeMessageOption = option;
+      const btnSuggested = document.getElementById('tab-suggested');
+      const btnCustom = document.getElementById('tab-custom');
+      const panelSuggested = document.getElementById('panel-suggested');
+      const panelCustom = document.getElementById('panel-custom');
+      const personalDetail = document.getElementById('personalDetail');
+      const reqAsterisk = document.getElementById('detail-required-asterisk');
+
+      if (option === 'suggested') {
+        btnSuggested.className = "py-2.5 px-3 rounded-lg text-xs font-medium transition-all flex items-center justify-center space-x-2 bg-cosmicPurple/60 text-warmWhite border border-softViolet/40 shadow-sm";
+        btnCustom.className = "py-2.5 px-3 rounded-lg text-xs font-medium transition-all flex items-center justify-center space-x-2 text-warmWhite/60 hover:text-warmWhite";
+        panelSuggested.classList.remove('hidden');
+        panelCustom.classList.add('hidden');
+        
+        personalDetail.setAttribute('required', 'required');
+        if (reqAsterisk) reqAsterisk.classList.remove('hidden');
+      } else {
+        btnCustom.className = "py-2.5 px-3 rounded-lg text-xs font-medium transition-all flex items-center justify-center space-x-2 bg-cosmicPurple/60 text-warmWhite border border-softViolet/40 shadow-sm";
+        btnSuggested.className = "py-2.5 px-3 rounded-lg text-xs font-medium transition-all flex items-center justify-center space-x-2 text-warmWhite/60 hover:text-warmWhite";
+        panelCustom.classList.remove('hidden');
+        panelSuggested.classList.add('hidden');
+        
+        personalDetail.removeAttribute('required');
+        if (reqAsterisk) reqAsterisk.classList.add('hidden');
+      }
+    }
+
+    function generateSuggestedMessage() {
+      const recipientName = document.getElementById('recipientName').value.trim();
+      const senderName = document.getElementById('senderName').value.trim();
+      const personalDetail = document.getElementById('personalDetail').value.trim();
+
+      if (!personalDetail) {
+        showToast("Please share one thing you love about your partner first!", "fa-exclamation-circle");
+        document.getElementById('personalDetail').focus();
+        return;
+      }
+
+      const spinner = document.getElementById('gen-spinner');
+      const btnText = document.getElementById('gen-btn-text');
+      spinner.classList.add('fa-spin');
+      btnText.textContent = "Weaving Romance...";
+
+      setTimeout(() => {
+        state.suggestedMessage = createWholesomeLoveLetter(recipientName, senderName, personalDetail);
+        spinner.classList.remove('fa-spin');
+        btnText.textContent = "Generate / Refresh Suggestion";
+        document.getElementById('suggestedText').value = state.suggestedMessage;
+        showToast("Heartfelt message generated!", "fa-wand-magic-sparkles");
+      }, 300);
+    }
+
+    function createWholesomeLoveLetter(recipient, sender, detail) {
+      const nameStr = recipient ? recipient : "my love";
+      const cleanedDetail = detail ? detail.trim().replace(/^that\s+/i, '').replace(/^(the way|how)\s+/i, '') : "your warm heart and gentle smile";
+
+      const templates = [
+        `Dearest ${nameStr},
+
+Happy Birthday! If you look up at the infinite expanse of the night sky, it feels almost impossible to capture how much light and warmth you bring into my world. But out of all the stars in every galaxy, having you in my life is the greatest blessing I could ever ask for.
+
+What I cherish most about you is ${cleanedDetail}. It is in those moments that I am constantly reminded of how beautiful, kind, and extraordinary you are. You turn ordinary days into poetry and fill every corner of my heart with peace.
+
+On your special day, I hope you feel as cherished and deeply loved as you truly are. May this new year bring you infinite joy, laughter, and all the magical moments your gentle soul deserves.
+
+With all my love and devotion,`,
+
+        `My Dearest ${nameStr},
+
+Happy Birthday, my love! Today is a celebration of the wonderful person you are and the endless happiness you bring to everyone around you. 
+
+Out of everything that makes you so captivating, I adore ${cleanedDetail}. That single quality alone makes my heart overflow with gratitude every single time I think of you. You make my life feel like a continuous, beautiful adventure.
+
+Thank you for being my anchor, my favorite smile, and my home. As you turn another page in your journey around the sun, I promise to stand by your side, celebrating you today and always.
+
+Forever yours,`,
+
+        `To my beloved ${nameStr},
+
+On this special day, I want to pause and tell you just how deeply you mean to me. Happy Birthday!
+
+There are a thousand things that make you incredible, but above all, I love ${cleanedDetail}. It is a gentle reminder of how sweet and soft life is whenever I am with you. You bring out the absolute best in me without even trying.
+
+May this year surround you with endless warmth, beautiful surprises, and all the love in the universe. You deserve every ounce of happiness in the world today.
+
+Always and forever,`
+      ];
+
+      return templates[Math.floor(Math.random() * templates.length)];
+    }
+
+    function getFinalActiveMessage() {
+      const recipientName = document.getElementById('recipientName').value.trim() || 'My Love';
+      const senderName = document.getElementById('senderName').value.trim() || 'Yours Always';
+      
+      if (state.activeMessageOption === 'suggested') {
+        const text = document.getElementById('suggestedText').value.trim();
+        if (!text) {
+          return createWholesomeLoveLetter(recipientName, senderName, document.getElementById('personalDetail').value.trim());
+        }
+        return text;
+      } else {
+        const customText = document.getElementById('customText').value.trim();
+        if (!customText) {
+          showToast("Please write your custom message or choose the suggested option.", "fa-pen-nib");
+          return null;
+        }
+        return customText;
+      }
+    }
+
+    function previewGift() {
+      const recipientNameInput = document.getElementById('recipientName');
+      const senderNameInput = document.getElementById('senderName');
+
+      if (!recipientNameInput.value.trim() || !senderNameInput.value.trim()) {
+        showToast("Please provide both Recipient and Sender names.", "fa-exclamation-circle");
+        return;
+      }
+
+      const msg = getFinalActiveMessage();
+      if (!msg) return;
+
+      state.recipientName = recipientNameInput.value.trim();
+      state.senderName = senderNameInput.value.trim();
+      state.activeMessage = msg;
+
+      renderRecipientView();
+      switchView('recipient');
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const msg = getFinalActiveMessage();
+      if (!msg) return;
+
+      state.recipientName = document.getElementById('recipientName').value.trim() || 'My Love';
+      state.senderName = document.getElementById('senderName').value.trim() || 'Yours Always';
+      state.activeMessage = msg;
+
+      const payload = {
+        r: state.recipientName,
+        s: state.senderName,
+        m: state.activeMessage
+      };
+
+      const encoded = safeBase64Encode(JSON.stringify(payload));
+      const shareUrl = `${window.location.origin}${window.location.pathname}?data=${encoded}`;
+
+      document.getElementById('shareUrlInput').value = shareUrl;
+      document.getElementById('share-modal').classList.remove('hidden');
+    }
+
+    function closeShareModal() {
+      document.getElementById('share-modal').classList.add('hidden');
+    }
+
+    function copyShareUrl() {
+      const input = document.getElementById('shareUrlInput');
+      input.select();
+      document.execCommand('copy');
+      
+      const copyBtnText = document.getElementById('copyBtnText');
+      copyBtnText.textContent = "Copied!";
+      setTimeout(() => { copyBtnText.textContent = "Copy"; }, 2000);
+      showToast("Share link copied to clipboard!", "fa-check-circle");
+    }
+
+    function launchRecipientFromModal() {
+      closeShareModal();
+      renderRecipientView();
+      switchView('recipient');
+    }
+
+    function renderRecipientView() {
+      const heading = document.getElementById('hero-heading');
+      if (state.recipientName && state.recipientName !== 'My Love') {
+        heading.textContent = `For ${state.recipientName}, who makes my universe brighter.`;
+      } else {
+        heading.textContent = `For the girl who makes my universe brighter.`;
+      }
+
+      document.getElementById('letter-greeting').textContent = `Dearest ${state.recipientName},`;
+      document.getElementById('letter-body').textContent = state.activeMessage;
+      document.getElementById('letter-sender').textContent = state.senderName;
+      document.getElementById('letter-date').textContent = new Date().toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 4. RECIPIENT JOURNEY SEQUENCE (Cinematic Stage Orchestrator)        */
+    /* ------------------------------------------------------------------ */
+    function startCosmicJourney() {
+      if (state.journeyActive) return;
+      state.journeyActive = true;
+      state.journeyStage = 1;
+
+      playCosmicTone();
+
+      const heroStage = document.getElementById('hero-stage');
+      heroStage.classList.add('opacity-0', '-translate-y-8', 'pointer-events-none');
+
+      setTimeout(() => {
+        state.journeyStage = 2;
+        spawnShootingStar();
+      }, 1000);
+
+      setTimeout(() => {
+        state.journeyStage = 3;
+      }, 2200);
+    }
+
+    function triggerLetterReveal() {
+      state.journeyStage = 5;
+      const letterStage = document.getElementById('letter-stage');
+      letterStage.classList.remove('opacity-0', 'pointer-events-none');
+      letterStage.classList.add('opacity-100', 'translate-y-0');
+    }
+
+    function resetJourneyState() {
+      state.journeyActive = false;
+      state.journeyStage = 0;
+      shootingStar = null;
+      burstParticles = [];
+
+      const heroStage = document.getElementById('hero-stage');
+      const letterStage = document.getElementById('letter-stage');
+
+      heroStage.classList.remove('opacity-0', '-translate-y-8', 'pointer-events-none');
+      letterStage.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 5. CANVAS COSMIC ENGINE (Stars, Nebulae, Planets, Shooting Star)  */
+    /* ------------------------------------------------------------------ */
+    function initCanvas() {
+      canvas = document.getElementById('universe-canvas');
+      ctx = canvas.getContext('2d');
+      resizeCanvas();
+
+      createStars();
+      createNebulae();
+      createPlanets();
+      createCosmicParticles();
+
+      requestAnimationFrame(animateUniverse);
+    }
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    function setupWindowEvents() {
+      window.addEventListener('resize', () => {
+        resizeCanvas();
+        createStars();
+        createNebulae();
+        createPlanets();
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        cameraOffset.x = (e.clientX - cx) * 0.03;
+        cameraOffset.y = (e.clientY - cy) * 0.03;
+      });
+    }
+
+    function createStars() {
+      stars = [];
+      const starCount = Math.floor((width * height) / 3000);
+      for (let i = 0; i < starCount; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 1.8 + 0.2,
+          alpha: Math.random() * 0.8 + 0.2,
+          baseAlpha: Math.random() * 0.7 + 0.3,
+          twinkleSpeed: Math.random() * 0.02 + 0.005,
+          color: Math.random() > 0.85 ? '#E9D6A5' : (Math.random() > 0.6 ? '#A78BFA' : '#FFFFFF'),
+          depth: Math.random() * 0.8 + 0.2
+        });
+      }
+    }
+
+    function createNebulae() {
+      nebulae = [
+        { x: width * 0.2, y: height * 0.3, radius: Math.max(width, height) * 0.35, color: 'rgba(88, 59, 145, 0.15)' },
+        { x: width * 0.8, y: height * 0.7, radius: Math.max(width, height) * 0.4, color: 'rgba(23, 17, 59, 0.25)' },
+        { x: width * 0.5, y: height * 0.5, radius: Math.max(width, height) * 0.3, color: 'rgba(167, 139, 250, 0.08)' }
+      ];
+    }
+
+    function createPlanets() {
+      planets = [
+        {
+          x: width * 0.85,
+          y: height * 0.25,
+          radius: Math.min(width, height) * 0.08 + 20,
+          colorInner: '#583B91',
+          colorAtmosphere: '#A78BFA',
+          depth: 0.3,
+          rings: true
+        },
+        {
+          x: width * 0.12,
+          y: height * 0.75,
+          radius: Math.min(width, height) * 0.06 + 15,
+          colorInner: '#17113B',
+          colorAtmosphere: '#6366F1',
+          depth: 0.5,
+          rings: false
+        }
+      ];
+    }
+
+    function createCosmicParticles() {
+      cosmicParticles = [];
+      for (let i = 0; i < 40; i++) {
+        cosmicParticles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: (Math.random() - 0.5) * 0.2,
+          size: Math.random() * 2 + 1,
+          alpha: Math.random() * 0.5 + 0.1
+        });
+      }
+    }
+
+    function spawnShootingStar() {
+      const startX = width * 0.1;
+      const startY = height * 0.25;
+      const targetX = width * 0.5;
+      const targetY = height * 0.5;
+
+      shootingStar = {
+        x: startX,
+        y: startY,
+        startX: startX,
+        startY: startY,
+        targetX: targetX,
+        targetY: targetY,
+        progress: 0,
+        trail: [],
+        arrived: false
+      };
+    }
+
+    function animateUniverse() {
+      ctx.clearRect(0, 0, width, height);
+
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
+      skyGrad.addColorStop(0, '#040612');
+      skyGrad.addColorStop(0.5, '#080B1D');
+      skyGrad.addColorStop(1, '#0F0C29');
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      nebulae.forEach(neb => {
+        ctx.save();
+        const grad = ctx.createRadialGradient(
+          neb.x + cameraOffset.x * 0.5, neb.y + cameraOffset.y * 0.5, 0,
+          neb.x + cameraOffset.x * 0.5, neb.y + cameraOffset.y * 0.5, neb.radius
+        );
+        grad.addColorStop(0, neb.color);
+        grad.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(neb.x + cameraOffset.x * 0.5, neb.y + cameraOffset.y * 0.5, neb.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      stars.forEach(s => {
+        let stageAlphaBoost = state.journeyStage >= 1 ? 0.3 : 0;
+        s.alpha += s.twinkleSpeed;
+        if (s.alpha > 1 || s.alpha < 0.2) s.twinkleSpeed = -s.twinkleSpeed;
+
+        const renderAlpha = Math.min(1, Math.max(0.1, s.alpha + stageAlphaBoost));
+        const px = s.x + cameraOffset.x * s.depth;
+        const py = s.y + cameraOffset.y * s.depth;
+
+        ctx.save();
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = renderAlpha;
+        ctx.beginPath();
+        ctx.arc(px, py, s.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      planets.forEach(p => {
+        const px = p.x + cameraOffset.x * p.depth;
+        const py = p.y + cameraOffset.y * p.depth;
+
+        ctx.save();
+        const atmosGrad = ctx.createRadialGradient(px, py, p.radius * 0.8, px, py, p.radius * 1.3);
+        atmosGrad.addColorStop(0, p.colorAtmosphere);
+        atmosGrad.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = atmosGrad;
+        ctx.beginPath();
+        ctx.arc(px, py, p.radius * 1.3, 0, Math.PI * 2);
+        ctx.fill();
+
+        const bodyGrad = ctx.createLinearGradient(px - p.radius, py - p.radius, px + p.radius, py + p.radius);
+        bodyGrad.addColorStop(0, '#E9D6A5');
+        bodyGrad.addColorStop(0.3, p.colorAtmosphere);
+        bodyGrad.addColorStop(1, p.colorInner);
+        ctx.fillStyle = bodyGrad;
+        ctx.beginPath();
+        ctx.arc(px, py, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (p.rings) {
+          ctx.strokeStyle = 'rgba(233, 214, 165, 0.3)';
+          ctx.lineWidth = 4;
+          ctx.beginPath();
+          ctx.ellipse(px, py, p.radius * 1.8, p.radius * 0.4, -Math.PI / 6, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.restore();
+      });
+
+      cosmicParticles.forEach(cp => {
+        cp.x += cp.vx;
+        cp.y += cp.vy;
+        if (cp.x < 0) cp.x = width;
+        if (cp.x > width) cp.x = 0;
+        if (cp.y < 0) cp.y = height;
+        if (cp.y > height) cp.y = 0;
+
+        ctx.fillStyle = '#E9D6A5';
+        ctx.globalAlpha = cp.alpha;
+        ctx.beginPath();
+        ctx.arc(cp.x, cp.y, cp.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      if (shootingStar && !shootingStar.arrived) {
+        shootingStar.progress += 0.008;
+        
+        const p0 = { x: shootingStar.startX, y: shootingStar.startY };
+        const p1 = { x: width * 0.25, y: height * 0.7 };
+        const p2 = { x: shootingStar.targetX, y: shootingStar.targetY };
+
+        const t = Math.min(1, shootingStar.progress);
+        const curX = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x;
+        const curY = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y;
+
+        shootingStar.x = curX;
+        shootingStar.y = curY;
+
+        shootingStar.trail.push({ x: curX, y: curY, alpha: 1, radius: Math.random() * 3 + 1.5 });
+        if (shootingStar.trail.length > 45) shootingStar.trail.shift();
+
+        for (let i = 0; i < shootingStar.trail.length; i++) {
+          const pt = shootingStar.trail[i];
+          pt.alpha *= 0.94;
+          ctx.save();
+          ctx.globalAlpha = pt.alpha;
+          const trailGrad = ctx.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, pt.radius * 3);
+          trailGrad.addColorStop(0, '#FFFFFF');
+          trailGrad.addColorStop(0.4, '#E9D6A5');
+          trailGrad.addColorStop(1, 'rgba(167, 139, 250, 0)');
+          ctx.fillStyle = trailGrad;
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, pt.radius * 2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        ctx.save();
+        ctx.shadowColor = '#E9D6A5';
+        ctx.shadowBlur = 25;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(curX, curY, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        if (t >= 1) {
+          shootingStar.arrived = true;
+          state.journeyStage = 4;
+          triggerStardustBurst(curX, curY);
+          setTimeout(triggerLetterReveal, 600);
+        }
+      }
+
+      if (burstParticles.length > 0) {
+        for (let i = burstParticles.length - 1; i >= 0; i--) {
+          const bp = burstParticles[i];
+          bp.x += bp.vx;
+          bp.y += bp.vy;
+          bp.alpha -= 0.015;
+          bp.vx *= 0.96;
+          bp.vy *= 0.96;
+
+          if (bp.alpha <= 0) {
+            burstParticles.splice(i, 1);
+            continue;
+          }
+
+          ctx.save();
+          ctx.globalAlpha = bp.alpha;
+          ctx.fillStyle = bp.color;
+          ctx.beginPath();
+          ctx.arc(bp.x, bp.y, bp.size, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      requestAnimationFrame(animateUniverse);
+    }
+
+    function triggerStardustBurst(cx, cy) {
+      burstParticles = [];
+      const colors = ['#E9D6A5', '#FFFFFF', '#A78BFA', '#F8F6FF'];
+      for (let i = 0; i < 90; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 6 + 1.5;
+        burstParticles.push({
+          x: cx,
+          y: cy,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: Math.random() * 3 + 1,
+          alpha: 1,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* 6. AUDIO & HELPER UTILITIES                                        */
+    /* ------------------------------------------------------------------ */
+    let audioCtx = null;
+
+    function playCosmicTone() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        osc1.type = 'sine';
+        osc2.type = 'triangle';
+
+        osc1.frequency.setValueAtTime(216, audioCtx.currentTime); 
+        osc2.frequency.setValueAtTime(324, audioCtx.currentTime); 
+
+        gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 3);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 12);
+
+        osc1.connect(gainNode);
+        osc2.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc1.start();
+        osc2.start();
+        osc1.stop(audioCtx.currentTime + 12);
+        osc2.stop(audioCtx.currentTime + 12);
+
+        state.audioPlaying = true;
+        updateAudioButtonUI();
+      } catch (e) {
+        console.warn("Web Audio API unavailable or blocked by browser policy");
+      }
+    }
+
+    function toggleAudio() {
+      if (!state.audioPlaying) {
+        playCosmicTone();
+      } else {
+        state.audioPlaying = false;
+        updateAudioButtonUI();
+      }
+    }
+
+    function updateAudioButtonUI() {
+      const icon = document.getElementById('audio-icon');
+      const label = document.getElementById('audio-label');
+      if (state.audioPlaying) {
+        icon.className = "fas fa-volume-high text-celestialGold";
+        label.textContent = "Sound On";
+      } else {
+        icon.className = "fas fa-volume-mute";
+        label.textContent = "Ambient Sound";
+      }
+    }
+
+    function showToast(msg, iconClass = "fa-info-circle") {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      const toastIcon = document.getElementById('toast-icon');
+
+      toastMsg.textContent = msg;
+      toastIcon.className = `fas ${iconClass} text-celestialGold`;
+
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
